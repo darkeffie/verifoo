@@ -2,7 +2,7 @@
  //$this->layout='//layouts/main';
 ?>
 <?php
-
+$lat = $long = '';
 if(isset($profile->latitude) && $profile->latitude!='')
 	$lat = $profile->latitude;
 
@@ -124,11 +124,19 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </script>   
 <div id="businessRCol">		
  	
-
-<h2 id="bsearchSpan" business-data="<?php  echo $model->id;?>" business-name="<?php  echo $model->businessname;?>"><?php echo $model->businessname;?>
+	
+<h2 id="bsearchSpan" business-data="<?php  echo $model->id;?>" business-name="<?php  echo $model->businessname;?>" title="<?php echo $model->businessname;?>">
+<?php if($model->dti_verified==1):;?>
+	<div class="verified">
+		<img src="<?php echo Yii::app()->getBaseUrl(true).'/images/verified.png' ?>" alt="Business Verified" title="Business Verified"/>
+	</div>
+<?php endif;?>
+<?php echo MHelper::String()->truncate($model->businessname, 32); ?>
 <div class="bStars">
-	<div class="star" style="width:<?php echo (16*round($model->reviewAve));?>px"></div>
+	<div class="star" style="width:<?php echo (22*round($model->reviewAve));?>px"></div>
 </div>
+
+</h2>
 <div class="socialsites">
 	<?php if(isset($profile->facebook_page) && $profile->facebook_page!=''):?>
 				<a href="https://www.facebook.com/<?php echo $profile->facebook_page;?>" target="_blank"><img src="<?php echo Yii::app()->getBaseUrl(true).'/images/facebook_icon.png' ?>"></a>
@@ -140,7 +148,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<a href="https://plus.google.com/<?php echo $profile->gplus_page;?>" target="_blank"><img src="<?php echo Yii::app()->getBaseUrl(true).'/images/google_icon.png' ?>"></a>
 	<?php endif;?>
 </div>	
-</h2>
 <div>
 	<div class="cvBprofile">
 					<?php $this->widget('ext.SAImageDisplayer', array(
@@ -164,8 +171,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	</div>
 	<div class="cvbD">
 			<div id="business<?php  echo $model->id;?>" business-map-lat="<?php  echo $profile->latitude;?>" business-map-long="<?php  echo $profile->longitude;?>"></div>
-			<a href="<?php echo Yii::app()->createUrl('business/photos', array('id' => $model->id));?>"><div id="business<?php  echo $model->id;?>" business-data="<?php  echo $model->id;?>" business-toggle="0" class="cvBButtons">Photos</div></a>
-			<a href="<?php echo Yii::app()->createUrl('business/view', array('id' => $model->id, '#' => "reviews"));?>"><div id="business<?php  echo $model->id;?>" business-data="<?php  echo $model->id;?>" business-toggle="0" class="cvBButtons">Reviews</div></a>
+			<a href="<?php echo Yii::app()->createUrl('business/photos', array('id' => $model->id));?>"><div id="business<?php  echo $model->id;?>" business-data="<?php  echo $model->id;?>" business-toggle="0" class="bCtrl bCtrl2">Photos</div></a>
+			<a href="<?php echo Yii::app()->createUrl('business/view', array('id' => $model->id, '#' => "reviews"));?>"><div id="business<?php  echo $model->id;?>" business-data="<?php  echo $model->id;?>" business-toggle="0" class="bCtrl bCtrl3">Reviews</div></a>
 	</div>
 	<div class="cvBDescription">
 			<?php echo $model->description;?>

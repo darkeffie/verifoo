@@ -29,20 +29,6 @@ class CustomCookie{
 				}	
 				
 	}
-	public static function putInDeck($cardID){
-					
-				$cookieJar = Yii::app()->request->getCookies();
-				if(CustomCookie::checkifInDeck($cardID)==false)
-				{
-						
-						$cookiejar = Yii::app()->request->getCookies();//get all the cookies
-						$kstring = "card[".$keycount."]";
-						$cookie = new CHttpCookie($kstring,$cardID,array('expire'=>(time()+(365*86400)), 'path'=>'/'));
-						$cookiejar = Yii::app()->request->getCookies();//get all the cookies
-						$cookiejar[$kstring] = $cookie;
-				}	
-				
-	}
 	public static function reloop($cookieJar){
 		if(isset($cookieJar['keysearch'])){
 				//print_r($cookieJar['keysearch']->value);exit;
@@ -71,17 +57,6 @@ class CustomCookie{
 		return $keys;
 	}
 	public static function checkifExists($cookieJar,$keyword,$numofKeysearch)
-	{
-			if(isset($cookieJar['keysearch']))
-				foreach($cookieJar['keysearch']->value as $val)
-				{
-					if(strtolower($val) == strtolower($keyword)){
-						return true;
-					}
-				}
-		return false;
-	}
-	public static function checkifInDeck($cookieJar,$cardID)
 	{
 			if(isset($cookieJar['keysearch']))
 				foreach($cookieJar['keysearch']->value as $val)
